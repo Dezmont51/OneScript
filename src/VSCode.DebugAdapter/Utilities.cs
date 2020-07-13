@@ -18,7 +18,7 @@ namespace VSCode.DebugAdapter
     {
         private static readonly Regex VARIABLE = new Regex(@"\{(\w+)\}");
 
-        public static string ConcatArguments(IEnumerable<string> args)
+        public static string ConcatArguments(IEnumerable<string> args, bool Screening = true)
         {
             if (args == null)
                 return string.Empty;
@@ -27,9 +27,16 @@ namespace VSCode.DebugAdapter
             foreach (var stringArg in args)
             {
                 sb.Append(' ');
-                sb.Append('\"');
-                sb.Append(stringArg);
-                sb.Append('\"');
+                if (Screening) 
+                { 
+                    sb.Append('\"');
+                    sb.Append(stringArg);
+                    sb.Append('\"');
+                } 
+                else
+                { 
+                    sb.Append(stringArg); 
+                }
             }
 
             return sb.ToString();

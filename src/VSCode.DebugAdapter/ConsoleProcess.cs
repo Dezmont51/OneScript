@@ -88,7 +88,7 @@ namespace VSCode.DebugAdapter
             }
 
             RuntimeExecutable = runtimeExecutable;
-            RuntimeArguments = Utilities.ConcatArguments(options.RuntimeArgs);
+            RuntimeArguments = Utilities.ConcatArguments(options.RuntimeArgs, false);
             StartupScript = options.Program;
             ScriptArguments = Utilities.ConcatArguments(options.Args);
             DebugProtocol = options.Protocol;
@@ -113,7 +113,7 @@ namespace VSCode.DebugAdapter
             var psi = process.StartInfo;
             psi.FileName = RuntimeExecutable;
             psi.UseShellExecute = false;
-            psi.Arguments = $"-debug {debugArguments} {RuntimeArguments} \"{StartupScript}\" {ScriptArguments}";
+            psi.Arguments = $"{RuntimeArguments} -debug {debugArguments}  \"{StartupScript}\" {ScriptArguments}";
             psi.WorkingDirectory = WorkingDirectory;
             psi.RedirectStandardError = true;
             psi.RedirectStandardOutput = true;
